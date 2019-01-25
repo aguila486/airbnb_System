@@ -1,0 +1,237 @@
+type  Query {
+	prueba:String
+	Users:[User]
+	User(id:ID!):User
+	Reservations:[Reservation]
+    Reservation(id:ID!):Reservation
+	Accomodations:[Accommodation]
+	Accomodation(id:ID!)Accommodation
+	Ubications:[Ubication]
+	Cards:[Card]
+    Card(id:ID!):Card
+	Payments:[Payment]
+	Payment(id:ID):Payment
+	Identifications:[Identification]
+    Identification(id:ID!):Identification
+    Pays:[Pay]
+    Pay(id:ID):Pay
+	Ubications:[Ubication]
+	Ubication(id:ID!)Ubication
+}
+
+type Mutation {
+	signup(data:UserCreateInput!):Auth
+	login(email:String!,password:String!):Auth
+	updateUser(id:ID,data:UserUpdateInput!):User
+	deleteUser(id:ID):String
+
+	createReservation():Reservation
+	updateReservation():Reservation
+	deleteReservation()::String
+
+	createAccommodation():Accommodation
+	updateAccommodation():Accommodation 
+	deleteAccommodation():String 
+
+	createUbication():Ubication
+	updateUbication():Ubication 
+	deleteUbication():String
+
+	createCard():Card
+	updateCard():Card 
+	deleteCard():String
+
+	createPayment():Payment
+	updatePayment():Payment
+	deletePayment():String
+
+	createIdentification():Identification
+	updateIdentification():Identification 
+	deleteIdentification():String
+
+}
+
+type Auth{
+	token:String
+	message:String
+}
+
+type User{
+	_id:ID
+	first_name:String
+	last_name:String
+	email:String
+	address:String
+	birth_date:String
+	inscription_date:String
+	gender:GENDER
+	photo_user:String
+	ranking:String
+	typeUser:USER
+	reservation:[Reservation]
+	accommodation:[Accommodation]
+	identification:[Identification]
+	payment:[Pay]
+	card:[Cards]
+	is_active:Boolean
+}
+input UserCreateInput {
+	first_name:String!
+	last_name:String!
+	email:String!
+	password:String!
+	first_name:String!
+	last_name:String!
+	email:String!
+	address:String
+	birth_date:String!
+	inscription_date:String!
+	gender:GENDER!
+	photo_user:String
+	typeUser:USER
+}
+
+type UserUpdateInput{
+	first_name:String
+	last_name:String
+	email:String
+	address:String
+	birth_date:String
+	gender:GENDER
+	photo_user:String
+	ranking:String
+	typeUser:USER
+	is_active:Boolean
+}
+
+type Reservation{
+	_id:ID
+	date_init:String
+	date_end:String
+	status:STATUS_RESERVATION
+	days:int 
+	payment:Payment
+	price:float
+	accommodation:[Accommodation]
+	number_occupant:int
+	is_active:Boolean
+}
+
+type Accommodation{
+	_id:ID
+	name:String
+	address:String
+	number_bedrooms:int 
+	schedule:String
+	price: float
+	ranking:String
+	type_accommodation:TYPE_ACCOMMODATION
+	type_property:TYPE_PROPERTY
+	type_provision:TYPE_PROVISION
+	is_exclusive: Boolean
+	number_bedroom:int
+	number_bed:int
+	number_bathroom:int
+	number_occupant:int
+	is_bathroom_shared:Boolean
+	services:SERVICES
+	rules:String
+	ubication:[Ubication]
+	urlPhoto:String
+	is_company:Boolean
+	is_active:Boolean
+}
+
+type Ubication{
+	_id:ID
+	direction:String
+	point_google:String
+	country:String
+	ciudad:String
+	province:String
+	postal_code:String
+
+}
+
+type Card{
+	_id:ID
+	number_card:String
+	bank_name:String
+	is_active:Boolean
+}
+
+type Payment{
+	_id:ID
+	card: Card
+	date_payment:String
+	status_payment:STATUS_PAYMENT
+	amount_total:float
+	is_active:Boolean
+}
+
+type Identification{
+	_id:ID
+	name:String
+	url_phote:[String]
+	status_Identification:STATUS_IDENTIFICATION
+	is_active:Boolean
+}
+
+enum GENDER{
+	Male
+	Female
+}
+
+enum USER{
+	Host
+	Guest
+}
+
+enum STATUS_RESERVATION{
+	Active
+	Canceled
+}
+
+enum TYPE_PROPERTY{
+	Department
+	Condominium
+	House
+	Loft
+	Apartotel
+}
+
+enum TYPE_PROVISION{
+	Accommodation
+	room
+	Shared_space
+}
+
+enum TYPE_ACCOMMODATION{
+	Department
+	House
+	Living_place
+	Accommodation
+	Bedand
+	Hotel
+}
+
+enum SERVICES{
+	Wifi
+	Champu
+	closet
+	Tv 
+	heating
+	Air_conditioner
+	Breakfast
+	Desk
+}
+
+enum STATUS_PAYMENT{
+	Active 
+	Cancel
+}
+
+enum STATUS_IDENTIFICATION{
+	Approved
+	Rejected
+}
